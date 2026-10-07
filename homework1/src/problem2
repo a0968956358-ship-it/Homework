@@ -1,0 +1,26 @@
+#include <iostream>
+#include <vector>
+
+void powersetHelper(const std::vector<int>& inputSet, size_t pos, std::vector<int>& subset) {
+    if (pos == inputSet.size()) {
+        std::cout << "{ ";
+        for (size_t i = 0; i < subset.size(); ++i) {
+            std::cout << subset[i] << " ";
+        }
+        std::cout << "}\n";
+        return;
+    }
+
+    powersetHelper(inputSet, pos + 1, subset);
+
+    subset.push_back(inputSet[pos]);
+    powersetHelper(inputSet, pos + 1, subset);
+    subset.pop_back(); // 回溯 restore
+}
+
+int main() {
+    std::vector<int> S = {1, 2, 3};
+    std::vector<int> subset;
+    powersetHelper(S, 0, subset);
+    return 0;
+}
